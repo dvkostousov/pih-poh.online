@@ -84,7 +84,7 @@ def page_not_found(e):
 
 
 @app.errorhandler(500)
-def page_not_found(e):
+def page_not_found_500(e):
     return render_template('500.html'), 500
 
 
@@ -306,7 +306,7 @@ def mail_recover_password(user_id, is_edit):
 
 @app.route('/logout')
 @login_required
-def logout():
+    def logout():
     logout_user()
     return redirect('/')
 

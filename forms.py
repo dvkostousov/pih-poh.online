@@ -70,12 +70,6 @@ class EditForm(FlaskForm):
     submit = SubmitField('Сохранить')
 
 
-class EmailChangeForm(FlaskForm):
-    email = StringField('Введите новую почту',
-                        validators=[DataRequired(), Email(message='Неккоректный адрес почты')])
-    submit = SubmitField('Отправить')
-
-
 class ArticleForm(FlaskForm):
     name = StringField('Заголовок', validators=[DataRequired(),
                                            Length(max=100, message='Заголовок должен содержать неболее 100 символов')])
