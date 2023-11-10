@@ -1,0 +1,80 @@
+<html>
+	<noscript>NO</noscript>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8; width=1200" />	
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+		<link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='images/favicons/apple-touch-icon.png') }}">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicons//favicon-32x32.png') }}">
+		<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicons//favicon-16x16.png') }}">
+		<link rel="mask-icon" href="{{ url_for('static', filename='images/favicons///safari-pinned-tab.svg') }}" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="theme-color" content="#ffffff">
+		<script src="https://kit.fontawesome.com/28305d38b6.js" crossorigin="anonymous"></script>
+		{% block head %}{% endblock %}
+		<title>{{ title }}</title>
+	</head>
+	<script>
+		function clos() {
+			document.getElementById('nbar').classList.add("animmm");			
+		}
+	</script>
+	<body>
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					<ul class=flashes>
+						{% for category, message in messages %}
+							<div class="{{ category }} notification-bar" id="nbar"> 
+								<p class="notification-text {{ category }}">{{ message }}</p>
+								{% if category == 'error' %}
+									<button onclick="clos()"><img src="{{ url_for('static', filename='images/close_err.png') }}"></button>
+								{% else %}
+									<button onclick="clos()"><img src="{{ url_for('static', filename='images/close_suc.png') }}"></button>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+
+		<header>
+				<div class="hdr lft">
+				  <img class="lft1" src="{{ url_for('static', filename='images/logo.png') }}" />
+					 <div class="lft2">
+						  <p>pih-poh.online</p>
+						  <hr />
+						  <p>рэп и хип-хоп</p>
+					</div>
+				</div>
+				<div class="hdr cntr1">
+					<a href="{{ url_for('article_line') }}">ЛЕНТА</a>
+				</div>
+				<div class="hdr cntr2">
+					<a href="{{ url_for('forum') }}">ФОРУМ</a>
+				</div>
+				<div class="hdr cntr3">
+					<a href="{{ url_for('about') }}">О ПРОЕКТЕ</a>
+				</div>
+				<div class="hdr cntr4">
+					<a href="{{ url_for('donate') }}">ДОНАТ</a>
+				</div>
+				<div class="hdr rght">
+				{% if current_user.is_authenticated %}
+					<a href="{{ url_for('user', user_id=current_user.id) }}">{{ current_user.nickname }}</a>
+					<hr />
+					<a href="{{ url_for('logout') }}">выйти</a>
+				{% else %}
+					<a href="{{ url_for('register') }}">регистрация</a>
+					<hr />
+					<a href="{{ url_for('login') }}">войти</a>
+				{% endif %}
+				</div>
+		</header>
+		<main>
+			{% block content %}{% endblock %}
+		</main>
+	</body>
+	<footer>
+		<p>©Copyright by Д. В. Костоусов, 2023</p>
+		<pre id="aa"><nobr>Контакты: <a href="mailto: pihpoh188@gmail.com">pihpoh188@gmail.com</a></nobr></pre>
+	</footer>
+</html>
